@@ -1,0 +1,20 @@
+
+name: CI RAG image
+on: [push,workflow_dispatch]
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    if: "contains(github.event.head_commit.message, 'rag') || github.event_name == 'workflow_dispatch'"
+    steps:
+    - uses: actions/checkout@v2
+    - name: Connexion au registre DockerHub
+      run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+    - name: Construire l'image Docker
+      working-directory: .
+      run: docker build --file Dockerfiles/Dockerfile2 --tag dorianalp38/rag-project:latest .  
+    - name: Pousser l'image Docker taguée
+      run: |
+          d=$(date +%Y-%m-%d--%H-%M-%S)
+          docker tag dorianalp38/rag-project:latest dorianalp38/rag-project:$d
+          docker push dorianalp38/rag-project:$d
+          docker push dorianalp38/rag-project:latest
