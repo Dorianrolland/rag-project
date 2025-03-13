@@ -5,4 +5,5 @@ chromadb
 pypdf
 ollama
 sentence-transformers
-
+pytesseract
+Pillow
