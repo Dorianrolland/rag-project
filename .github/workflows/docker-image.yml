@@ -11,7 +11,7 @@ jobs:
       run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
     - name: Construire l'image Docker
       working-directory: .
-      run: docker build --file Dockerfiles/Dockerfile2 --tag dorianalp38/rag-project:latest .  
+      run: docker build --file Dockerfile --tag dorianalp38/rag-project:latest .  
     - name: Pousser l'image Docker taguée
       run: |
           d=$(date +%Y-%m-%d--%H-%M-%S)
