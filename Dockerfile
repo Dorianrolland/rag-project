@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
     tesseract-ocr \
     tesseract-ocr-fra \
     libtesseract-dev \
+    poppler-utils \
     && rm -rf /var/lib/apt/lists/*
 
 # Installer Ollama
@@ -16,8 +17,11 @@ RUN curl -fsSL https://ollama.com/install.sh | sh
 WORKDIR /app
 COPY . /app
 
-# Installer les dépendances Python
+# Installer les dépendances Python (elles sont toutes listées dans requirements.txt)
 RUN pip install --upgrade pip && pip install -r requirements.txt
+
+# (Optionnel) Pour désactiver la parallélisation des tokenizers et éviter des avertissements
+ENV TOKENIZERS_PARALLELISM=false
 
 # Exposer les ports
 EXPOSE 11434
