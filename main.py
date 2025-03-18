@@ -6,7 +6,7 @@ def main():
         question = input("Pose ta question (ou tape 'exit' pour quitter) : ")
         if question.lower() == "exit":
             break
-        response = rag_chain.run(question)
+        response = rag_chain(question)
         print("Réponse :", response)
 
 if __name__ == "__main__":

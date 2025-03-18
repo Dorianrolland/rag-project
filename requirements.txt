@@ -7,3 +7,4 @@ ollama
 sentence-transformers
 pytesseract
 Pillow
+pdf2image
