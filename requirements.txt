@@ -1,6 +1,7 @@
 langchain
 langchain-ollama
 langchain_community
+langchain_chroma
 chromadb
 pypdf
 ollama
