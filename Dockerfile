@@ -1,6 +1,6 @@
 FROM python:3.9-slim
 
-# Installer les dépendances système
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
     curl \
@@ -10,31 +10,31 @@ RUN apt-get update && apt-get install -y \
     poppler-utils \
     && rm -rf /var/lib/apt/lists/*
 
-# Installer Ollama
+# Install Ollama
 RUN curl -fsSL https://ollama.com/install.sh | sh
 
-# Définir le répertoire de travail
+# Set working directory
 WORKDIR /app
 
-# Copier uniquement les fichiers de configuration et requirements
+# Copy only configuration files and requirements
 COPY requirements.txt /app/
 
-# Installer les dépendances Python sans conserver le cache
+# Install Python dependencies without caching
 RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
 
-# Déclarer le volume pour /app pour pouvoir modifier les scripts directement
+# Declare volume for /app to modify scripts directly
 VOLUME ["/app"]
 
-# Copier les fichiers de l’application (optionnel, sera remplacé par le bind mount)
+# Copy application files (optional, will be replaced by bind mount)
 COPY . /app
 
-# (Optionnel) Pour désactiver la parallélisation des tokenizers et éviter des avertissements
+# Disable tokenizer parallelism to avoid warnings
 ENV TOKENIZERS_PARALLELISM=false
 
-# Exposer les ports
+# Expose ports
 EXPOSE 11434
 EXPOSE 8000
 
-# Démarrer Ollama et l’application
+# Start Ollama and the application
 CMD ollama serve & sleep 1 && ollama pull mistral && python main.py
- 	
+
