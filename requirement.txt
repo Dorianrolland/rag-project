@@ -1,0 +1,15 @@
+langchain
+langchain-ollama
+langchain-community
+langchain-chroma
+langchain-huggingface
+chromadb
+pypdf
+ollama
+sentence-transformers
+pytesseract
+Pillow
+pdf2image
+nltk==3.8.1
+
+
